@@ -49,9 +49,35 @@ export default {
     },
     methods: {
         submit(){
-            console.log(this.result);
+            // console.log(this.result);
             this.$http
                 .post('https://football-league-c088e.firebaseio.com/results.json', this.result)
+                .then(response => {
+                    console.log(response);
+                }, error => {
+                    console.log(error);
+                });
+            let leagueTeam = {};
+						let leagueTeam2 = {};
+						// let leagueTable = [];
+						leagueTeam.team = this.result.tn1;
+						leagueTeam.win = this.result.sc1 > this.result.sc2 ? 1 : 0;
+						leagueTeam.loss = this.result.sc1 < this.result.sc2 ? 1 : 0;
+						leagueTeam.draw = this.result.sc1 === this.result.sc2 ? 1 : 0;
+						leagueTeam2.team = this.result.tn2;
+						leagueTeam2.win = this.result.sc2 > this.result.sc1 ? 1 : 0;
+						leagueTeam2.loss = this.result.sc2 < this.result.sc1 ? 1 : 0;
+						leagueTeam2.draw = this.result.sc2 === this.result.sc1 ? 1 : 0;
+						// leagueTable.push(leagueTeam,leagueTeam2);
+						this.$http
+                .post('https://football-league-c088e.firebaseio.com/league.json', leagueTeam)
+                .then(response => {
+                    console.log(response);
+                }, error => {
+                    console.log(error);
+                });
+						this.$http
+                .post('https://football-league-c088e.firebaseio.com/league.json', leagueTeam2)
                 .then(response => {
                     console.log(response);
                 }, error => {

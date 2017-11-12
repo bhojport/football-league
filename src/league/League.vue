@@ -1,83 +1,58 @@
 <template>
     <div id="league">
         <h1 class="text-center">League Table</h1>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Pos</th>
-                    <th scope="col">Team v t e</th>
-                    <th scope="col">Pld</th>
-                    <th scope="col">W</th>
-                    <th scope="col">D</th>
-                    <th scope="col">L</th>
-                    <th scope="col">Pts</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Chelsea (C)</td>
-                    <td>38</td>
-                    <td>30</td>
-                    <td>3</td>
-                    <td>5</td>
-                    <td>93</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Tottenham Hotspur</td>
-                    <td>38</td>
-                    <td>26</td>
-                    <td>8</td>
-                    <td>4</td>
-                    <td>86</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Manchestar City</td>
-                    <td>38</td>
-                    <td>29</td>
-                    <td>9</td>
-                    <td>6</td>
-                    <td>78</td>
-                </tr>
-                <tr>
-                    <th scope="row">4</th>
-                    <td>Liverpool</td>
-                    <td>38</td>
-                    <td>22</td>
-                    <td>10</td>
-                    <td>6</td>
-                    <td>76</td>
-                </tr>
-                <tr>
-                    <th scope="row">5</th>
-                    <td>Arsenal</td>
-                    <td>38</td>
-                    <td>23</td>
-                    <td>6</td>
-                    <td>9</td>
-                    <td>75</td>
-                </tr>
-                <tr>
-                    <th scope="row">6</th>
-                    <td>Manchestar United</td>
-                    <td>38</td>
-                    <td>18</td>
-                    <td>15</td>
-                    <td>5</td>
-                    <td>69</td>
-                </tr>
-                <tr>
-                    <th scope="row">5</th>
-                    <td>Everton</td>
-                    <td>38</td>
-                    <td>17</td>
-                    <td>10</td>
-                    <td>11</td>
-                    <td>68</td>
-                </tr>
-            </tbody>
-        </table>
+				<table class="table table-striped">
+					<thead>
+							<tr>
+									<th scope="col">Pos</th>
+									<th scope="col">Team v t e</th>
+									<th scope="col">Pld</th>
+									<th scope="col">W</th>
+									<th scope="col">D</th>
+									<th scope="col">L</th>
+									<th scope="col">Pts</th>
+							</tr>
+					</thead>
+					<tbody>
+							<tr v-for="(value,key) in dbResults" :key="key">
+									<th scope="row">{{key+1}}</th>
+									<td>{{value.team}}</td>
+									<td>{{value.win+value.draw+value.loss}}</td>
+									<td>{{value.win}}</td>
+									<td>{{value.draw}}</td>
+									<td>{{value.loss}}</td>
+									<td>{{value.win*3+value.draw}}</td>
+							</tr>
+					</tbody>
+				</table>
     </div>
 </template>
+<script>
+export default {
+  data: function(){
+      return {
+        resultsData: []
+      }
+  },
+	computed: {
+		dbResults(){
+        this.$http
+						.get('https://football-league-c088e.firebaseio.com/league.json')
+						.then(response => {
+								return response.json();
+						}, error => {
+								console.log(error);
+						})
+						.then(results => {
+								const resultsArr = [];
+								for(let key in results){
+										resultsArr.push(results[key]);
+								}
+								let resData = Object.values(resultsArr.reduce((h,o)=>(h[o.team]=h[o.team]||{draw:0,loss:0,win:0,team:o.team},['loss','draw','win'].forEach(k=>h[o.team][k]+=o[k]),h),{}));
+								this.resultsData = resData;
+						});
+				return this.resultsData;
+    }
+	}
+}
+</script>
