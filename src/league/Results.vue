@@ -2,34 +2,39 @@
     <div id="results">
         <h1 class="text-center">Results</h1>
         <dl>
-            <dt class="mt-3">12/11/2017</dt>
-            <div class="row">
-                <dd class="col-5">Aston Villa (1)</dd>
-                <dd class="col-2">vs</dd>
-                <dd class="col-5 text-success">Manchester Utd (3)</dd>
-            </div>
-            <div class="row">
-                <dd class="col-5">Liverpool (1)</dd>
-                <dd class="col-2">vs</dd>
-                <dd class="col-5 text-success">Leads (1)</dd>
-            </div>
-
-            <dt class="mt-3">12/10/2017</dt>
-            <div class="row">
-                <dd class="col-5">Liverpool (4)</dd>
-                <dd class="col-2">vs</dd>
-                <dd class="col-5 text-success">Stroke City (7)</dd>
-            </div>
-            <div class="row">
-                <dd class="col-5 text-success">Man City (2)</dd>
-                <dd class="col-2">vs</dd>
-                <dd class="col-5">Watford (1)</dd>
-            </div>
-            <div class="row">
-                <dd class="col-5 text-success">Everton (1)</dd>
-                <dd class="col-2">vs</dd>
-                <dd class="col-5">Swansea (1)</dd>
+            <div v-for="(result,i) in results" :key="i">
+                <dt class="mt-3">{{result.date}}</dt>
+                <div class="row" v-for="(team, idx) in result.team" :key="idx">
+                    <dd class="col-5" :class="{'text-success': team.scoreA > team.scoreB }">{{team.teamA}} ({{team.scoreA}})</dd>
+                    <dd class="col-2">vs</dd>
+                    <dd class="col-51" :class="{'text-success': team.scoreB > team.scoreA }">{{team.teamB}} ({{team.scoreB}})</dd>
+                </div>
             </div>
         </dl>
     </div>
 </template>
+<script>
+export default {
+  data: function(){
+      return {
+        results: [
+            {
+                date: '12/11/2017',
+                team: [
+                    {teamA: 'Aston Villa', teamB: 'Manchester Utd', scoreA: 1, scoreB: 3},
+                    {teamA: 'Liverpool', teamB: 'Leads', scoreA: 1, scoreB: 1}
+                ]
+            },
+            {
+                date: '12/11/2017',
+                team: [
+                    {teamA: 'Liverpool', teamB: 'Stroke City', scoreA: 4, scoreB: 7},
+                    {teamA: 'Mancity', teamB: 'Watford', scoreA: 2, scoreB: 1},
+                    {date: '12/10/2017', teamA: 'Everton', teamB: 'Swansea', scoreA: 1, scoreB: 1}
+                ]
+            }
+        ]
+      }
+  }
+}
+</script>
