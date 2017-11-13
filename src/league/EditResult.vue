@@ -36,7 +36,7 @@
 </template>
 <script>
 export default {
-    props: ['data','dataKey'],
+    props: ['data','dataKey','team1Key','team2Key'],
     methods: {
         submit(){
             this.$http
@@ -46,7 +46,7 @@ export default {
                 }, error => {
                     console.log(error);
                 });
-            /* let leagueTeam = {};
+            let leagueTeam = {};
             let leagueTeam2 = {};
             leagueTeam.team = this.data.tn1;
             leagueTeam.win = this.data.sc1 > this.data.sc2 ? 1 : 0;
@@ -57,19 +57,19 @@ export default {
             leagueTeam2.loss = this.data.sc2 < this.data.sc1 ? 1 : 0;
             leagueTeam2.draw = this.data.sc2 === this.data.sc1 ? 1 : 0;
             this.$http
-                .put('https://football-league-c088e.firebaseio.com/league.json', leagueTeam)
+                .patch('https://football-league-c088e.firebaseio.com/league.json', {[this.team1Key]: leagueTeam})
                 .then(response => {
                     console.log(response);
                 }, error => {
                     console.log(error);
                 });
-						this.$http
-                .put('https://football-league-c088e.firebaseio.com/league.json', leagueTeam2)
+			this.$http
+                .patch('https://football-league-c088e.firebaseio.com/league.json', {[this.team2Key]: leagueTeam2})
                 .then(response => {
                     console.log(response);
                 }, error => {
                     console.log(error);
-                }); */
+                });
         }
     }
 }
