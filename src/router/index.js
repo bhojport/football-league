@@ -27,7 +27,8 @@ export default new Router({
     {
       path: '/edit/:id',
       name: 'EditResult',
-      component: EditResult
+      component: EditResult,
+      props: true
     }
   ]
 })

@@ -5,27 +5,27 @@
             <div class="row">
                 <div class="col form-group">
                     <label for="team-a">Team Name</label>
-                    <input type="text" id="team-a" class="form-control" placeholder="Enter team name..." v-model="$route.params.tn1">
+                    <input type="text" id="team-a" class="form-control" placeholder="Enter team name..." v-model="data.tn1">
                 </div>
                 <div class="col form-group">
                 <label for="team-b">Team Name</label>
-                    <input type="text" id="team-b" class="form-control" placeholder="Enter team name..." v-model="$route.params.tn2">
+                    <input type="text" id="team-b" class="form-control" placeholder="Enter team name..." v-model="data.tn2">
                 </div>
             </div>
             <div class="row">
                 <div class="col form-group">
                     <label for="score-a">Score</label>
-                    <input type="number" min="0" id="score-a" class="form-control" placeholder="Enter score..." v-model="$route.params.sc1">
+                    <input type="number" min="0" id="score-a" class="form-control" placeholder="Enter score..." v-model="data.sc1">
                 </div>
                 <div class="col form-group">
                 <label for="score-b">Score</label>
-                    <input type="number" min="0" id="score-b" class="form-control" placeholder="Enter score..." v-model="$route.params.sc2">
+                    <input type="number" min="0" id="score-b" class="form-control" placeholder="Enter score..." v-model="data.sc2">
                 </div>
             </div>
             <div class="row">
                 <div class="col-6 form-group">
                     <label for="date">Date</label>
-                    <input type="date" id="date" class="form-control" v-model="$route.params.date">
+                    <input type="date" id="date" class="form-control" v-model="data.date">
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -36,7 +36,7 @@
 </template>
 <script>
 export default {
-
+    props: ['data'],
     data(){
         return {
             result: {

@@ -46,8 +46,7 @@ export default {
 	},
 	methods: {
 		edit(id,data){
-			const ddData = Object.assign({id:id},data);
-			this.$router.push({name: 'EditResult', params: ddData});
+			this.$router.push({name: 'EditResult', params: {id: id, data: data}})
 		}
 	}
 }
