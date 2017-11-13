@@ -4,7 +4,7 @@
         <dl>
             <div v-for="(value,key) in dbResults" :key="key">
                 <dt class="mt-3">{{key}}</dt>
-								<div class="row" v-for="(v,i) in value" :key="i">
+								<div class="row" v-for="(v,i) in value" :key="i" @click="edit(i+1, v)">
 									<dd class="col-5" :class="{'text-success': v.sc1 > v.sc2}">{{v.tn1}} ({{v.sc1}})</dd>
 									<dd class="col-2">vs</dd>
 									<dd class="col-5" :class="{'text-success':v.sc2 > v.sc1}">{{v.tn2}} ({{v.sc2}})</dd>
@@ -17,7 +17,7 @@
 export default {
   data: function(){
       return {
-        resultsData: []
+		resultsData: []
       }
   },
 	computed: {
@@ -43,6 +43,12 @@ export default {
 						});
 				return this.resultsData;
     }
+	},
+	methods: {
+		edit(id,data){
+			const ddData = Object.assign({id:id},data);
+			this.$router.push({name: 'EditResult', params: ddData});
+		}
 	}
 }
 </script>
