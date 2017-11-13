@@ -44,7 +44,10 @@ export default {
                 sc1: '',
                 sc2: '',
                 date: ''
-            }
+            },
+            finishedPostResult: false,
+            finishedPostLeagueTeam: false,
+            finishedPostLeagueTeam2: false
         };
     },
     methods: {
@@ -54,6 +57,10 @@ export default {
                 .post('https://football-league-c088e.firebaseio.com/results.json', this.result)
                 .then(response => {
                     console.log(response);
+                    this.finishedPostResult = true;
+                    if(this.finishedPostResult && this.finishedPostLeagueTeam && this.finishedPostLeagueTeam2){
+                        this.$router.push({name:'Results'});
+                    }
                 }, error => {
                     console.log(error);
                 });
@@ -73,6 +80,10 @@ export default {
                 .post('https://football-league-c088e.firebaseio.com/league.json', leagueTeam)
                 .then(response => {
                     console.log(response);
+                    this.finishedPostLeagueTeam = true
+                    if(this.finishedPostResult && this.finishedPostLeagueTeam && this.finishedPostLeagueTeam2){
+                        this.$router.push({name:'Results'});
+                    }
                 }, error => {
                     console.log(error);
                 });
@@ -80,6 +91,10 @@ export default {
                 .post('https://football-league-c088e.firebaseio.com/league.json', leagueTeam2)
                 .then(response => {
                     console.log(response);
+                    this.finishedPostLeagueTeam2 = true
+                    if(this.finishedPostResult && this.finishedPostLeagueTeam && this.finishedPostLeagueTeam2){
+                        this.$router.push({name:'Results'});
+                    }
                 }, error => {
                     console.log(error);
                 });
