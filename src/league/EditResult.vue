@@ -38,6 +38,7 @@
 export default {
     data(){
         return {
+            // TODO: Use interceptor and avoid the following http request technique.
             finishedPatchResult: false,
             finishedPatchLeagueTeam: false,
             finishedPatchLeagueTeam2: false
