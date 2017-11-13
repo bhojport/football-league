@@ -36,54 +36,40 @@
 </template>
 <script>
 export default {
-    props: ['data'],
-    data(){
-        return {
-            result: {
-                tn1: '',
-                tn2: '',
-                sc1: '',
-                sc2: '',
-                date: ''
-            }
-        };
-    },
+    props: ['data','dataKey'],
     methods: {
         submit(){
-            // console.log(this.result);
             this.$http
-                .post('https://football-league-c088e.firebaseio.com/results.json', this.result)
+                .patch('https://football-league-c088e.firebaseio.com/results.json', {[this.dataKey]: this.data})
                 .then(response => {
                     console.log(response);
                 }, error => {
                     console.log(error);
                 });
-            let leagueTeam = {};
-						let leagueTeam2 = {};
-						// let leagueTable = [];
-						leagueTeam.team = this.result.tn1;
-						leagueTeam.win = this.result.sc1 > this.result.sc2 ? 1 : 0;
-						leagueTeam.loss = this.result.sc1 < this.result.sc2 ? 1 : 0;
-						leagueTeam.draw = this.result.sc1 === this.result.sc2 ? 1 : 0;
-						leagueTeam2.team = this.result.tn2;
-						leagueTeam2.win = this.result.sc2 > this.result.sc1 ? 1 : 0;
-						leagueTeam2.loss = this.result.sc2 < this.result.sc1 ? 1 : 0;
-						leagueTeam2.draw = this.result.sc2 === this.result.sc1 ? 1 : 0;
-						// leagueTable.push(leagueTeam,leagueTeam2);
-						this.$http
-                .post('https://football-league-c088e.firebaseio.com/league.json', leagueTeam)
+            /* let leagueTeam = {};
+            let leagueTeam2 = {};
+            leagueTeam.team = this.data.tn1;
+            leagueTeam.win = this.data.sc1 > this.data.sc2 ? 1 : 0;
+            leagueTeam.loss = this.data.sc1 < this.data.sc2 ? 1 : 0;
+            leagueTeam.draw = this.data.sc1 === this.data.sc2 ? 1 : 0;
+            leagueTeam2.team = this.data.tn2;
+            leagueTeam2.win = this.data.sc2 > this.data.sc1 ? 1 : 0;
+            leagueTeam2.loss = this.data.sc2 < this.data.sc1 ? 1 : 0;
+            leagueTeam2.draw = this.data.sc2 === this.data.sc1 ? 1 : 0;
+            this.$http
+                .put('https://football-league-c088e.firebaseio.com/league.json', leagueTeam)
                 .then(response => {
                     console.log(response);
                 }, error => {
                     console.log(error);
                 });
 						this.$http
-                .post('https://football-league-c088e.firebaseio.com/league.json', leagueTeam2)
+                .put('https://football-league-c088e.firebaseio.com/league.json', leagueTeam2)
                 .then(response => {
                     console.log(response);
                 }, error => {
                     console.log(error);
-                });
+                }); */
         }
     }
 }
