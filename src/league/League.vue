@@ -49,7 +49,11 @@ export default {
 										resultsArr.push(results[key]);
 								}
 								let resData = Object.values(resultsArr.reduce((h,o)=>(h[o.team]=h[o.team]||{draw:0,loss:0,win:0,team:o.team},['loss','draw','win'].forEach(k=>h[o.team][k]+=o[k]),h),{}));
-								this.resultsData = resData;
+								this.resultsData = resData.sort((a,b)=>{
+									const keyA = a.win;
+									const keyB = b.win;
+									return keyB - keyA;
+								});
 						});
 				return this.resultsData;
     }
