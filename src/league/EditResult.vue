@@ -48,7 +48,7 @@ export default {
     methods: {
         submit(){
             this.$http
-                .patch('https://football-league-c088e.firebaseio.com/results.json', {[this.dataKey]: this.data})
+                .patch('results.json', {[this.dataKey]: this.data})
                 .then(response => {
                     console.log(response);
                     this.finishedPatchResult = true;
@@ -67,7 +67,7 @@ export default {
             leagueTeam2.loss = this.data.sc2 < this.data.sc1 ? 1 : 0;
             leagueTeam2.draw = this.data.sc2 === this.data.sc1 ? 1 : 0;
             this.$http
-                .patch('https://football-league-c088e.firebaseio.com/league.json', {[this.team1Key]: leagueTeam})
+                .patch('league.json', {[this.team1Key]: leagueTeam})
                 .then(response => {
                     console.log(response);
                     this.finishedPatchLeagueTeam = true;
@@ -76,7 +76,7 @@ export default {
                     console.log(error);
                 });
 			this.$http
-                .patch('https://football-league-c088e.firebaseio.com/league.json', {[this.team2Key]: leagueTeam2})
+                .patch('league.json', {[this.team2Key]: leagueTeam2})
                 .then(response => {
                     console.log(response);
                     this.finishedPatchLeagueTeam2 = true;

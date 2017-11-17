@@ -25,7 +25,7 @@ export default {
 	computed: {
 		dbResults(){
         this.$http
-						.get('https://football-league-c088e.firebaseio.com/results.json')
+						.get('results.json')
 						.then(response => {
 								return response.json();
 						}, error => {
@@ -48,7 +48,7 @@ export default {
 								this.secretData = secretKeys;
 						});
 				this.$http
-						.get('https://football-league-c088e.firebaseio.com/league.json')
+						.get('league.json')
 						.then(response=>{
 							return response.json();
 						}, error => console.log(error))

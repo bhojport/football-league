@@ -54,7 +54,7 @@ export default {
         submit(){
             // console.log(this.result);
             this.$http
-                .post('https://football-league-c088e.firebaseio.com/results.json', this.result)
+                .post('results.json', this.result)
                 .then(response => {
                     console.log(response);
                     this.finishedPostResult = true;
@@ -77,7 +77,7 @@ export default {
 						leagueTeam2.draw = this.result.sc2 === this.result.sc1 ? 1 : 0;
 						// leagueTable.push(leagueTeam,leagueTeam2);
 						this.$http
-                .post('https://football-league-c088e.firebaseio.com/league.json', leagueTeam)
+                .post('league.json', leagueTeam)
                 .then(response => {
                     console.log(response);
                     this.finishedPostLeagueTeam = true
@@ -88,7 +88,7 @@ export default {
                     console.log(error);
                 });
 						this.$http
-                .post('https://football-league-c088e.firebaseio.com/league.json', leagueTeam2)
+                .post('league.json', leagueTeam2)
                 .then(response => {
                     console.log(response);
                     this.finishedPostLeagueTeam2 = true

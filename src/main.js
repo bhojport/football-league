@@ -15,6 +15,9 @@ Vue.use(BootstrapVue);
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+Vue.http.options.root = 'https://football-league-c088e.firebaseio.com';
+
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

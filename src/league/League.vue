@@ -37,7 +37,7 @@ export default {
 	computed: {
 		dbResults(){
         this.$http
-						.get('https://football-league-c088e.firebaseio.com/league.json')
+						.get('league.json')
 						.then(response => {
 								return response.json();
 						}, error => {
