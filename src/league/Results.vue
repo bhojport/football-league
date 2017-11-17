@@ -19,37 +19,33 @@ export default {
       return {
 		resultsData: [],
 		secretData: [],
-		leagueData: []
+		leagueData: [],
+		resource: {}
       }
   },
 	computed: {
 		dbResults(){
-        this.$http
-						.get('results.json')
-						.then(response => {
-								return response.json();
-						}, error => {
-								console.log(error);
-						})
-						.then(results => {
-								const resultsArr = [];
-								const secretKeys = [];
-								for(let key in results){
-										resultsArr.push(results[key]);
-										secretKeys.push(key);
-								}
-								const resData = resultsArr.reduce(function (r, a) {
-										r[a.date] = r[a.date] || [];
-										r[a.date].push(a);
-										return r;
-								}, Object.create(null));
-								
-								this.resultsData = resData;
-								this.secretData = secretKeys;
-						});
-				this.$http
-						.get('league.json')
-						.then(response=>{
+			this.resource.get({})
+				.then(response => {
+					return response.json();
+				})
+				.then(results =>{
+					const resultsArr = [];
+					const secretKeys = [];
+					for(let key in results){
+							resultsArr.push(results[key]);
+							secretKeys.push(key);
+					}
+					const resData = resultsArr.reduce(function (r, a) {
+							r[a.date] = r[a.date] || [];
+							r[a.date].push(a);
+							return r;
+					}, Object.create(null));
+					this.resultsData = resData;
+					this.secretData = secretKeys;
+				})
+			this.resource.getLeague()
+				.then(response=>{
 							return response.json();
 						}, error => console.log(error))
 						.then(league => {
@@ -58,14 +54,26 @@ export default {
 								leagueKeys.push(key);
 							}
 							this.leagueData = leagueKeys;
-						})
+						});
 				return this.resultsData;
-    }
+	}
 	},
 	methods: {
 		edit(id,data,dataKey, team1Key, team2Key){
 			this.$router.push({name: 'EditResult', params: {id: id, data: data, dataKey: dataKey, team1Key: team1Key, team2Key: team2Key}})
 		}
+	},
+	created(){
+		const customActions = {
+			getLeague: {
+				method: 'GET',
+				url: 'league.json'
+			}
+		}
+		this.resource = this.$resource('results.json', {}, customActions);
+		/* Bhojendra Note: this.resource.get({}) is used for getting all data
+		like that we're passing customActions and we call this.resource.getLeague() for this we
+		are passing empty object before we pass customActions in $resource. */
 	}
 }
 </script>
